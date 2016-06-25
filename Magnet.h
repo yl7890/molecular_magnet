@@ -38,6 +38,10 @@ class Magnet {
   /// throws if idx is out of range
   void flipSpin(size_t idx);
 
+  /// saves the current state of the magnet to file
+  /// @param  csvFileName the filename to which the state is saved
+  void save(const std::string& csvFileName) const;
+
   Magnet() = default;
   Magnet(const Magnet&) = default;
   Magnet(Magnet&&) = default;

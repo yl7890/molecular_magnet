@@ -87,6 +87,41 @@ bool magnetFlipTest2() {
   return true;
 }
 
+bool magnetSaveTest1() {
+  using namespace mm;
+
+  std::vector<Vec3> latticeSites = {
+      Vec3(0, 0, 0),  Vec3(1, 0, 0),  Vec3(0, 1, 0), Vec3(0, 0, 1),
+      Vec3(-1, 0, 0), Vec3(0, -1, 0), Vec3(0, 0, -1)};
+  std::vector<int> spinValues = {1, 1, -1, 1, -1, -1, 1};
+  const auto magnet = Magnet(latticeSites, spinValues);
+
+  magnet.save("test_saved_magnet.csv");
+
+  const auto magnet2 = Magnet("test_saved_magnet.csv");
+
+  const auto& latticeSites2 = magnet2.latticeSites();
+  const auto& spinValues2 = magnet2.spinValues();
+
+  if (spinValues2[0] != 1) return false;
+  if (spinValues2[1] != 1) return false;
+  if (spinValues2[2] != -1) return false;
+  if (spinValues2[3] != 1) return false;
+  if (spinValues2[4] != -1) return false;
+  if (spinValues2[5] != -1) return false;
+  if (spinValues2[6] != 1) return false;
+
+  if (latticeSites2[0] != Vec3(0, 0, 0)) return false;
+  if (latticeSites2[1] != Vec3(1, 0, 0)) return false;
+  if (latticeSites2[2] != Vec3(0, 1, 0)) return false;
+  if (latticeSites2[3] != Vec3(0, 0, 1)) return false;
+  if (latticeSites2[4] != Vec3(-1, 0, 0)) return false;
+  if (latticeSites2[5] != Vec3(0, -1, 0)) return false;
+  if (latticeSites2[6] != Vec3(0, 0, -1)) return false;
+
+  return true;
+}
+
 int main() {
   std::cout << "*** Magnet Tests ***" << std::endl;
 
@@ -94,6 +129,7 @@ int main() {
   MM_RUNTEST(magnetCtorTest2);
   MM_RUNTEST(magnetFlipTest1);
   MM_RUNTEST(magnetFlipTest2);
+  MM_RUNTEST(magnetSaveTest1);
 
   return 0;
 }

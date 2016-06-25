@@ -86,7 +86,34 @@ Magnet::Magnet(const std::string &csvFileName) {
     spinValues.emplace_back(s);
   } //  end while loop
 
+  csvFile.close();
+
   initialize(latticeSites, spinValues);
+  
+}
+
+void Magnet::save(const std::string& csvFileName) const {
+  //  try opening the file
+  std::ofstream csvFile;
+  csvFile.open(csvFileName);
+  if (!csvFile.is_open())
+    throw std::runtime_error("unable to open csv file " +
+                             csvFileName + " for saving");
+
+  //  write header
+  csvFile << "x,y,z,s" << std::endl;
+
+  for(size_t idx = 0; idx < numSpins(); ++idx) {
+    const auto& site = m_latticeSites[idx];
+    const auto spin = m_spinValues[idx];
+    csvFile << std::to_string(getX(site)) << ",";
+    csvFile << std::to_string(getY(site)) << ",";
+    csvFile << std::to_string(getZ(site)) << ",";
+    csvFile << std::to_string(spin) << std::endl;
+  } 
+
+  csvFile.close();
+
 }
 
 }  //  end namespace 'mm'

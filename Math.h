@@ -19,6 +19,22 @@ Vec3 operator*(double a, const Vec3& v) noexcept;
 /// overloaded Vec3 equality
 bool operator==(const Vec3& v1, const Vec3& v2) noexcept;
 
+/// get the x coordinate
+double& getX(Vec3& v) noexcept;
+/// get the x coordinate (const version)
+double getX(const Vec3& v) noexcept;
+
+/// get the y coordinate
+double& getY(Vec3& v) noexcept;
+/// get the y coordinate (const version)
+double getY(const Vec3& v) noexcept;
+
+/// get the z coordinate
+double& getZ(Vec3& v) noexcept;
+/// get the z coordinate (const version)
+double getZ(const Vec3& v) noexcept;
+
+
 
 } //  end namespace 'mm'
 

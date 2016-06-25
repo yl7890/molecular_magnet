@@ -67,6 +67,28 @@ bool vec3AssignmentTest1() {
   return true;
 }
 
+bool randomSpinGeneratorTest1() {
+  using namespace mm;
+  auto rsg = RandomSpinGenerator();
+
+  for(int trial = 0; trial < 1000; ++trial) {
+    const auto s = rsg.getSpinValue(0.5);
+    if (s != -1 && s != 1)  return false;
+  }
+
+  for(int trial = 0; trial < 1000; ++trial) {
+    const auto s = rsg.getSpinValue(1.0);
+    if (s != 1)  return false;
+  }
+
+  for(int trial = 0; trial < 1000; ++trial) {
+    const auto s = rsg.getSpinValue(0);
+    if (s != -1)  return false;
+  }
+
+  return true;
+}
+
 
 int main() {
   std::cout << "*** Math Test ***" << std::endl;
@@ -76,6 +98,7 @@ int main() {
   MM_RUNTEST(vec3ScalarMultTest1);
   MM_RUNTEST(vec3ScalarMultTest2);
   MM_RUNTEST(vec3AssignmentTest1);
+  MM_RUNTEST(randomSpinGeneratorTest1);
 
   return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <random>
 #include <tuple>
 
 namespace mm {
@@ -35,6 +36,26 @@ double getY(const Vec3& v) noexcept;
 double& getZ(Vec3& v) noexcept;
 /// get the z coordinate (const version)
 double getZ(const Vec3& v) noexcept;
+
+
+/// @class  RandomSpinGenerator
+/// @brief  returns either +1 or -1 with some given probability
+class RandomSpinGenerator {
+  public:
+    /// constructor
+    /// @param  seed  seed value for the random number generator, or leave as 0
+    ///         to use the current time
+    RandomSpinGenerator(unsigned long seed = 0);
+
+    /// returns a random value of the spin
+    /// @param  upProbability the probability of return +1 
+    ///         (must be between 0 and 1)
+    int getSpinValue(double upProbability) const;
+
+  private:
+    mutable std::mt19937 m_rng;
+    mutable std::uniform_real_distribution<double> m_unif;
+};
 
 } //  end namespace 'mm'
 

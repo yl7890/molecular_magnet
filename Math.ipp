@@ -40,5 +40,10 @@ inline bool operator!=(const Vec3& v1, const Vec3& v2) noexcept {
   return !(v1 == v2);
 }
 
+inline int RandomSpinGenerator::getSpinValue(double upProbability) const {
+  const auto p = m_unif(m_rng); //  get a random number between 0 and 1
+  return ((p < upProbability) ? 1 : -1);
+}
+
 
 }  //  end namespace 'mm'

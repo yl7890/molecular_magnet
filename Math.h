@@ -34,8 +34,6 @@ double& getZ(Vec3& v) noexcept;
 /// get the z coordinate (const version)
 double getZ(const Vec3& v) noexcept;
 
-
-
 } //  end namespace 'mm'
 
 #include "Math.ipp"

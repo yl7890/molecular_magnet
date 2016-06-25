@@ -1,8 +1,7 @@
 #include "Utils.h"
+#include "Test.h"
 
 #include <cmath>
-#include <iomanip>
-#include <iostream>
 #include <stdexcept>
 
 bool splitStringTest1() {
@@ -108,23 +107,12 @@ bool stringAsIntTest2() {
 int main() {
   std::cout << "*** Utils Test ***" << std::endl;
 
-  std::cout << std::left << std::setw(32) << "splitStringTest1...";
-  std::cout << (splitStringTest1() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "splitStringTest2...";
-  std::cout << (splitStringTest2() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "stringAsIntTest1...";
-  std::cout << (stringAsIntTest1() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "stringAsIntTest2...";
-  std::cout << (stringAsIntTest2() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "stringAsDoubleTest1...";
-  std::cout << (stringAsDoubleTest1() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "stringAsDoubleTest2...";
-  std::cout << (stringAsDoubleTest2() ? "passed" : "FAILED *") << std::endl;
+  MM_RUNTEST(splitStringTest1);
+  MM_RUNTEST(splitStringTest2);
+  MM_RUNTEST(stringAsIntTest1);
+  MM_RUNTEST(stringAsIntTest2);
+  MM_RUNTEST(stringAsDoubleTest1);
+  MM_RUNTEST(stringAsDoubleTest2);
 
   return 0;
 }

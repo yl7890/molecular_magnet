@@ -1,8 +1,8 @@
 #include "Math.h"
+#include "Test.h"
 
 #include <cmath>
-#include <iostream>
-#include <iomanip>
+
 
 bool vec3SumTest1() {
   using namespace mm;
@@ -71,20 +71,11 @@ bool vec3AssignmentTest1() {
 int main() {
   std::cout << "*** Math Test ***" << std::endl;
 
-  std::cout << std::left << std::setw(32) << "vec3SumTest1...";
-  std::cout << (vec3SumTest1() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "vec3DiffTest1...";
-  std::cout << (vec3DiffTest1() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "vec3ScalarMultTest1...";
-  std::cout << (vec3ScalarMultTest1() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "vec3ScalarMultTest2...";
-  std::cout << (vec3ScalarMultTest2() ? "passed" : "FAILED *") << std::endl;
-
-  std::cout << std::left << std::setw(32) << "vec3AssignmentTest1...";
-  std::cout << (vec3AssignmentTest1() ? "passed" : "FAILED *") << std::endl;
+  MM_RUNTEST(vec3SumTest1);
+  MM_RUNTEST(vec3DiffTest1);
+  MM_RUNTEST(vec3ScalarMultTest1);
+  MM_RUNTEST(vec3ScalarMultTest2);
+  MM_RUNTEST(vec3AssignmentTest1);
 
   return 0;
 }

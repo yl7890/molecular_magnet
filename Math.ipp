@@ -36,5 +36,9 @@ inline bool operator==(const Vec3& v1, const Vec3& v2) noexcept {
          (std::abs(getY(v1) - getY(v2)) < EPSILON) &&
          (std::abs(getZ(v1) - getZ(v2)) < EPSILON);
 }
+inline bool operator!=(const Vec3& v1, const Vec3& v2) noexcept {
+  return !(v1 == v2);
+}
+
 
 }  //  end namespace 'mm'

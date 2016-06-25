@@ -18,6 +18,8 @@ Vec3 operator-(const Vec3& v1, const Vec3& v2) noexcept;
 Vec3 operator*(double a, const Vec3& v) noexcept;
 /// overloaded Vec3 equality
 bool operator==(const Vec3& v1, const Vec3& v2) noexcept;
+/// overloaded Vec3 inequality 
+bool operator!=(const Vec3& v1, const Vec3& v2) noexcept;
 
 /// get the x coordinate
 double& getX(Vec3& v) noexcept;

@@ -1,7 +1,7 @@
 #include "Magnet.h"
 #include "Utils.h"
 
-#include <algorithm>
+#include <ctime>
 #include <fstream>
 #include <stdexcept>
 #include <string>
@@ -82,38 +82,59 @@ Magnet::Magnet(const std::string &csvFileName) {
     const auto z = stringAsDouble(splitStr[2]);
     const auto s = stringAsInt(splitStr[3]);
 
-    latticeSites.emplace_back(Vec3(x,y,z));
+    latticeSites.emplace_back(Vec3(x, y, z));
     spinValues.emplace_back(s);
-  } //  end while loop
+  }  //  end while loop
 
   csvFile.close();
 
   initialize(latticeSites, spinValues);
-  
 }
 
-void Magnet::save(const std::string& csvFileName) const {
+void Magnet::save(const std::string &csvFileName) const {
   //  try opening the file
   std::ofstream csvFile;
   csvFile.open(csvFileName);
   if (!csvFile.is_open())
-    throw std::runtime_error("unable to open csv file " +
-                             csvFileName + " for saving");
+    throw std::runtime_error("unable to open csv file " + csvFileName +
+                             " for saving");
 
   //  write header
   csvFile << "x,y,z,s" << std::endl;
 
-  for(size_t idx = 0; idx < numSpins(); ++idx) {
-    const auto& site = m_latticeSites[idx];
+  for (size_t idx = 0; idx < numSpins(); ++idx) {
+    const auto &site = m_latticeSites[idx];
     const auto spin = m_spinValues[idx];
     csvFile << std::to_string(getX(site)) << ",";
     csvFile << std::to_string(getY(site)) << ",";
     csvFile << std::to_string(getZ(site)) << ",";
     csvFile << std::to_string(spin) << std::endl;
-  } 
+  }
 
   csvFile.close();
+}
 
+Magnet SphericalMagnet(const Vec3 &axis1, const Vec3 &axis2, const Vec3 &axis3,
+                       double radius, int initialSpin) {
+  //  some input validation
+  if (radius < EPSILON)
+    throw std::runtime_error("invalid value of radius' (=" +
+                             std::to_string(radius) + ")");
+  if ((initialSpin != 1) && (initialSpin != -1) && (initialSpin != 0))
+    throw std::runtime_error("invalid value of initialSpin (=" +
+                             std::to_string(initialSpin) +
+                             "), only +1, 0, or -1 allowed");
+
+  RandomSpinGenerator rsg;
+
+  std::vector<Vec3> latticeSites;
+  std::vector<int> spinValues;
+
+  /*
+      your code here
+   */
+
+  return Magnet(latticeSites, spinValues);
 }
 
 }  //  end namespace 'mm'

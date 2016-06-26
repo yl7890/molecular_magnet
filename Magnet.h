@@ -18,8 +18,8 @@ class Magnet {
   /// @parram spinValues    array of their corresponding spin values
   /// @note   the latticeSites and their spinValues must be in 1-to-1
   ///         correspondance --- in particular, they must be of the same length
-  Magnet(const std::vector<Vec3> &latticeSites,
-         const std::vector<int> &spinValues);
+  Magnet(const std::vector<Vec3>& latticeSites,
+         const std::vector<int>& spinValues);
 
   /// the lattice sites of the magnet
   const std::vector<Vec3>& latticeSites() const noexcept;
@@ -42,6 +42,20 @@ class Magnet {
   /// @param  csvFileName the filename to which the state is saved
   void save(const std::string& csvFileName) const;
 
+  /** creates a spherically shaped magnet with the given lattice structure
+   * @param  axis1 the first axis of the lattice cell
+   * @param  axis2 the second axis of the lattice cell
+   * @param  axis3 the third axis of the lattice cell
+   * @param  radius  the radius of the spherical magnet, in the same unit of
+             distance as the axes.
+   * @param  initialSpin the initial magnetization of the magnet, with allowed
+   *         values of either +1 (all up), -1 (all down), or 0 (randomly +1 or
+   *         -1 with 0.5 probability)
+   */
+  static Magnet SphericalMagnet(const Vec3& axis1, const Vec3& axis2,
+                                const Vec3& axis3, double radius,
+                                int initialSpin);
+
   Magnet() = default;
   Magnet(const Magnet&) = default;
   Magnet(Magnet&&) = default;
@@ -49,8 +63,8 @@ class Magnet {
   Magnet& operator=(Magnet&&) = default;
 
  private:
-  void initialize(const std::vector<Vec3> &latticeSites,
-                  const std::vector<int> &spinValues);
+  void initialize(const std::vector<Vec3>& latticeSites,
+                  const std::vector<int>& spinValues);
 
  private:
   std::vector<Vec3> m_latticeSites;  //  the lattice sites

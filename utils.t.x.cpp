@@ -44,24 +44,28 @@ bool stringAsDoubleTest1() {
 bool stringAsDoubleTest2() {
   try {
     const auto resultA = mm::stringAsDouble("foo");
+    (void) resultA; //  turn off -Wall unused variable warning
   } catch (const std::runtime_error &err) {
     return true;
   }
 
   try {
     const auto resultA = mm::stringAsDouble("");
+    (void) resultA; //  turn off -Wall unused variable warning
   } catch (const std::runtime_error &err) {
     return true;
   }
 
   try {
     const auto resultA = mm::stringAsDouble("-1.12 foo");
+    (void) resultA; //  turn off -Wall unused variable warning
   } catch (const std::runtime_error &err) {
     return true;
   }
 
   try {
     const auto resultA = mm::stringAsDouble("-1.12 1.13");
+    (void) resultA; //  turn off -Wall unused variable warning
   } catch (const std::runtime_error &err) {
     return true;
   }
@@ -85,18 +89,21 @@ bool stringAsIntTest1() {
 bool stringAsIntTest2() {
   try {
     const auto resultA = mm::stringAsInt("foo");
+    (void) resultA; //  turn off -Wall unused variable warning
   } catch (const std::runtime_error &err) {
     return true;
   }
 
   try {
     const auto resultA = mm::stringAsInt("1.12");
+    (void) resultA; //  turn off -Wall unused variable warning
   } catch (const std::runtime_error &err) {
     return true;
   }
 
   try {
     const auto resultA = mm::stringAsInt("1 foo");
+    (void) resultA; //  turn off -Wall unused variable warning
   } catch (const std::runtime_error &err) {
     return true;
   }

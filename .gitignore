@@ -4,3 +4,4 @@
 **/*.x
 *.o
 **/*.o
+test_saved_magnet.csv

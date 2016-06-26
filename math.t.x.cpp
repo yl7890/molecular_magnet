@@ -91,6 +91,7 @@ bool randomSpinGeneratorTest1() {
 
 
 int main() {
+  std::cout << std::endl;
   std::cout << "*** Math Test ***" << std::endl;
 
   MM_RUNTEST(vec3SumTest1);

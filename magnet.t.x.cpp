@@ -123,6 +123,7 @@ bool magnetSaveTest1() {
 }
 
 int main() {
+  std::cout << std::endl;
   std::cout << "*** Magnet Tests ***" << std::endl;
 
   MM_RUNTEST(magnetCtorTest1);

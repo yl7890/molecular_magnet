@@ -112,6 +112,7 @@ bool stringAsIntTest2() {
 }
 
 int main() {
+  std::cout << std::endl;
   std::cout << "*** Utils Test ***" << std::endl;
 
   MM_RUNTEST(splitStringTest1);

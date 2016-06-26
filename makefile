@@ -25,3 +25,5 @@ UtilsTest:  utils.t.x.cpp Utils.o Test.h
 
 MagnetTest: magnet.t.x.cpp Magnet.o Test.h
 	$(CC) $(CFLAGS) magnet.t.x.cpp -o magnet.t.x Magnet.o Math.o Utils.o
+
+Tests:  MathTest UtilsTest MagnetTest

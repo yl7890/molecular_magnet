@@ -3,6 +3,7 @@
 #include "Test.h"
 
 #include <iostream>
+#include <set>
 
 bool magnetCtorTest1() {
   using namespace mm;
@@ -27,8 +28,8 @@ bool magnetCtorTest2() {
   if (magnet.numUp() != 4) return false;
   if (magnet.numDn() != 3) return false;
 
-  const auto& latticeSites = magnet.latticeSites();
-  const auto& spinValues = magnet.spinValues();
+  const auto &latticeSites = magnet.latticeSites();
+  const auto &spinValues = magnet.spinValues();
 
   if (spinValues[0] != 1) return false;
   if (spinValues[1] != 1) return false;
@@ -100,8 +101,8 @@ bool magnetSaveTest1() {
 
   const auto magnet2 = Magnet("test_saved_magnet.csv");
 
-  const auto& latticeSites2 = magnet2.latticeSites();
-  const auto& spinValues2 = magnet2.spinValues();
+  const auto &latticeSites2 = magnet2.latticeSites();
+  const auto &spinValues2 = magnet2.spinValues();
 
   if (spinValues2[0] != 1) return false;
   if (spinValues2[1] != 1) return false;
@@ -122,6 +123,60 @@ bool magnetSaveTest1() {
   return true;
 }
 
+bool magnetSphericalMagnetTest1() {
+  using namespace mm;
+
+  //  create a spherical cubic magnet with all spin up and a radius of 1.0
+  //  inclusive
+  const auto magnet = Magnet::SphericalMagnet(Vec3(1, 0, 0), Vec3(0, 1, 0),
+                                              Vec3(0, 0, 1), 1.0, 1);
+  std::set<Vec3> expectedLatticePoints(
+      {Vec3(0, 0, 0), Vec3(1, 0, 0), Vec3(-1, 0, 0), Vec3(0, 1, 0),
+       Vec3(0, -1, 0), Vec3(0, 0, 1), Vec3(0, 0, -1)});
+  std::set<Vec3> actualLatticePoints(magnet.latticeSites().cbegin(),
+                                     magnet.latticeSites().cend());
+
+  //  if lattice points don't match up
+  if (expectedLatticePoints != actualLatticePoints) return false;
+
+  //  test if all spins are up
+  for (const auto s : magnet.spinValues())
+    if (s != +1) return false;
+
+  return true;
+}
+
+bool magnetSphericalMagnetTest2() {
+  using namespace mm;
+
+  //  create a spherical cubic magnet with all spin dn and a radius of 2.0
+  //  inclusive
+  const auto magnet = Magnet::SphericalMagnet(Vec3(1, 0, 0), Vec3(0, 1, 0),
+                                              Vec3(0, 0, 1), 1.0, 1);
+  std::set<Vec3> expectedLatticePoints(
+      {Vec3(-2, 0, 0), Vec3(-1, -1, -1), Vec3(-1, -1, 0), Vec3(-1, -1, 1),
+       Vec3(-1, 0, -1), Vec3(-1, 0, 0), Vec3(-1, 0, 1), Vec3(-1, 1, -1),
+       Vec3(-1, 1, 0), Vec3(-1, 1, 1), Vec3(0, -2, 0), Vec3(0, -1, -1),
+       Vec3(0, -1, 0), Vec3(0, -1, 1), Vec3(0, 0, -2), Vec3(0, 0, -1),
+       Vec3(0, 0, 0), Vec3(0, 0, 1), Vec3(0, 0, 2), Vec3(0, 1, -1),
+       Vec3(0, 1, 0), Vec3(0, 1, 1), Vec3(0, 2, 0), Vec3(1, -1, -1),
+       Vec3(1, -1, 0), Vec3(1, -1, 1), Vec3(1, 0, -1), Vec3(1, 0, 0),
+       Vec3(1, 0, 1), Vec3(1, 1, -1), Vec3(1, 1, 0), Vec3(1, 1, 1),
+       Vec3(2, 0, 0)
+      });
+  std::set<Vec3> actualLatticePoints(magnet.latticeSites().cbegin(),
+                                     magnet.latticeSites().cend());
+
+  //  if lattice points don't match up
+  if (expectedLatticePoints != actualLatticePoints) return false;
+
+  //  test if all spins are up
+  for (const auto s : magnet.spinValues())
+    if (s != +1) return false;
+
+  return true;
+}
+
 int main() {
   std::cout << std::endl;
   std::cout << "*** Magnet Tests ***" << std::endl;
@@ -131,6 +186,8 @@ int main() {
   MM_RUNTEST(magnetFlipTest1);
   MM_RUNTEST(magnetFlipTest2);
   MM_RUNTEST(magnetSaveTest1);
+  MM_RUNTEST(magnetSphericalMagnetTest1);
+  MM_RUNTEST(magnetSphericalMagnetTest2);
 
   return 0;
 }

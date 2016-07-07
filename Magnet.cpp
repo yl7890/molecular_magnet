@@ -114,8 +114,9 @@ void Magnet::save(const std::string &csvFileName) const {
   csvFile.close();
 }
 
-Magnet SphericalMagnet(const Vec3 &axis1, const Vec3 &axis2, const Vec3 &axis3,
-                       double radius, int initialSpin) {
+Magnet Magnet::SphericalMagnet(const Vec3 &axis1, const Vec3 &axis2,
+                               const Vec3 &axis3, double radius,
+                               int initialSpin) {
   //  some input validation
   if (radius < EPSILON)
     throw std::runtime_error("invalid value of radius' (=" +
